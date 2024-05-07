@@ -1,0 +1,10 @@
+type = module
+name = Bootstrap Icons
+description = "Expose Bootstrap icons to Backdrop's core Icon API."
+package = Media
+tags[] = Media
+tags[] = Icons
+tags[] = User Interface
+backdrop = 1.x
+
+dependencies[] = system (>=1.28)

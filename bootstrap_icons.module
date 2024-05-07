@@ -1,0 +1,35 @@
+<?php
+/**
+ * @file Bootstrap Icons module.
+ */
+
+/**
+ * Implements hook_icon_info().
+ */
+function bootstrap_icons_icon_info() {
+  return _bootstrap_icons_load_icons();
+}
+
+/**
+ * Loads the icons from the Bootstrap Icons library.
+ */
+function _bootstrap_icons_load_icons() {
+  $icons = cache_get('bootstrap_icons_array');
+  if (!empty($icons)) {
+    return $icons->data;
+  }
+
+  $icons = array();
+  $icon_list = scandir(backdrop_get_path('module', 'bootstrap_icons') . '/icons');
+  foreach ($icon_list as $icon) {
+    if (substr($icon, -4) == '.svg') {
+      $icon_name = substr($icon, 0, -4);
+      $icons['bootstrap-icons-' . $icon_name] = array(
+        'name' => $icon_name,
+      );
+    }
+  }
+
+  cache_set('bootstrap_icons_array', $icons, 'cache', CACHE_PERMANENT);
+  return $icons;
+}
